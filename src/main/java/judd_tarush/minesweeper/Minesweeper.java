@@ -22,9 +22,9 @@ public class Minesweeper {
     }
 }
 
-public class Grid extends JFrame {
-    int rows = 0;
-    int cols = 0;
+class Grid extends JFrame {
+    private int rows = 0;
+    private int cols = 0;
     private javax.swing.JPanel pane;
     Square[][] grid;
 
@@ -33,7 +33,7 @@ public class Grid extends JFrame {
         super();
         this.rows = rows;
         this.cols = cols;
-        = new Square[this.rows][this.cols];
+//        = new Square[this.rows][this.cols];
         this.initSquares();
     }
     
@@ -52,18 +52,32 @@ public class Grid extends JFrame {
             }
         }
         
-        pane.get
-        
-        layout.
-        
     }
     
+    public int getRows() {
+        return this.rows;
+    }
+    
+    public int getCols() {
+        return this.cols;
+    }
+    
+    public Square getSquare(int i, int j) {
+        if (i < 0 || i >= this.rows || j < 0 || j >= this.cols) {
+            return null;
+        }
+        
+        return this.grid[i][j];
+    }
 
 }
 
-public class Square extends JButton {
+class Square extends JButton {
     
     public Square(int i, int j, boolean isMine) {
+        super();
+        this.setText("empty");
+        this.setIcon(new Icon("your mom"));
         
     }
 }

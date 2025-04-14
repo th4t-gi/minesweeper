@@ -3,18 +3,73 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package judd_tarush.minesweeper;
+import javax.swing.*;
 
 /**
  *
  * @author braujudd
  */
-public class Square extends javax.swing.JFrame {
+public class Square extends JButton {
 
+    private final int ROW;
+    private final int COL;
+    private final boolean ISMINE;
+    
+    private boolean revealed = false;
+    private boolean isMarked = false;
+    private int neighboringMines;
+    private Grid grid;
+    
     /**
      * Creates new form Square
      */
-    public Square() {
+    public Square(int row, int col, Grid grid, boolean isMine) {
+        this.ROW = row;
+        this.COL = col;
+        this.ISMINE = isMine;
+        this.grid = grid;
+        
+        //calculate neighbors
+        this.neighboringMines = 0;
+        
         initComponents();
+    }
+    
+    public boolean isMine() {
+        return this.ISMINE;
+    }
+  
+    
+    public void reveal() {
+        if (this.ISMINE) {
+            //game over
+        }
+        
+        if (this.revealed) {
+            return;
+        }
+        
+        if (this.neighboringMines == 0) {
+            //reveal neighbors
+            for (int i = this.ROW-1; i <= row+1; i++) {
+                for (int j = col-1; j <=col+1; j++) {
+                    Square s = this.grid.getSquare(i, j);
+                    if (s != null && !s.isRevealed()) {
+                        this.grid.getSquare(i, j).reveal();
+                    }
+                }
+            }        
+        } else {
+            this.revealed = true;
+        }
+    }
+    
+    public void onRightClick() {
+        this.isMarked = true;
+    }
+    
+    public boolean isRevealed() {
+        return this.revealed;
     }
 
     /**
